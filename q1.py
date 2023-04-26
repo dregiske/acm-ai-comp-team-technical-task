@@ -18,13 +18,9 @@ def main():
 
     #------------------------------------------ YOUR CODE GOES HERE ------------------------------------------
 
-    stime = time.time()
-
+    # TODO: replace this code with your multiprocessed version
     for word in WORDS:
         print(hash(word))
-
-    etime = time.time()
-    print(f'time taken:\t{etime - stime}')
 
     #---------------------------------------------------------------------------------------------------------
 
