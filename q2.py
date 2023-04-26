@@ -45,10 +45,10 @@ def main():
     TERRAIN = np.loadtxt(CSV_DIR / Path('terrain.csv'), delimiter=',').astype(np.int8)
 
     # Q2a result printed here
-    print(unstable_walls(np.copy(WALLS), np.copy(TERRAIN), threshold=DIRT))
+    print('unstable_walls:', unstable_walls(np.copy(WALLS), np.copy(TERRAIN), threshold=DIRT))
 
     # Q2b result printed here
-    print(leak_territory(np.copy(WALLS), leak_origin=LEAK_ORIGIN))
+    print('leak_territory:', leak_territory(np.copy(WALLS), leak_origin=LEAK_ORIGIN))
 
 if __name__ == '__main__':
     main()
