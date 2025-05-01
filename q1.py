@@ -17,11 +17,15 @@ def hash(word: str):
 def main():
 
     #------------------------------------------ YOUR CODE GOES HERE ------------------------------------------
-
-    # TODO: replace this code with your multiprocessed version
-    for word in WORDS:
-        print(hash(word))
-
+    start = time.time() # start time
+    with mp.Pool() as pool: # create parallel processes to hash WORDS
+        results = pool.map(hash, WORDS)
+    end = time.time() # end time
+    total_time = (end - start)
+    
+    for i in results: # print words
+        print(i)
+    print("Total time: ", total_time) # print total time
     #---------------------------------------------------------------------------------------------------------
 
 if __name__ == '__main__':
