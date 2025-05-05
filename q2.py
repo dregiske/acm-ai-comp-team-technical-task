@@ -14,16 +14,36 @@ def unstable_walls(walls: np.ndarray, terrain: np.ndarray, threshold: int = MUD)
 
     #------------------------------------------ YOUR CODE GOES HERE ------------------------------------------
     # Question 2a
-    
-    return -1
+    wall_mask = (walls != EMPTY) 
+    soft_wall = (terrain <= threshold)
+    reinforce_walls = np.count_nonzero(wall_mask & soft_wall)
+    return reinforce_walls
     #---------------------------------------------------------------------------------------------------------
 
 def leak_territory(walls: np.ndarray, leak_origin: tuple[int] = LEAK_ORIGIN) -> int:
 
     #------------------------------------------ YOUR CODE GOES HERE ------------------------------------------
     # Question 2b
+    wall_mask = (walls != EMPTY) # boolean array for empty walls
 
-    return -1
+    flooded = np.zeros_like(wall_mask, bool)
+    flooded[LEAK_ORIGIN] = True
+
+    while True:
+        up      = np.roll(flooded, 1, axis=0)
+        down    = np.roll(flooded, -1, axis=0)
+        right   = np.roll(flooded, 1, axis=1)
+        left    = np.roll(flooded, -1, axis=1)
+        neighbors = (up | down | right | left) # possible neighbors
+
+        new_spill = neighbors & (~wall_mask) & (~flooded) # spill in places where there is no wall
+        if not new_spill.any():
+            break
+        flooded |= new_spill
+
+    surface_area = flooded.sum()
+    return surface_area
+
     #---------------------------------------------------------------------------------------------------------
 
 def validate_env(csv_dir: Path):
